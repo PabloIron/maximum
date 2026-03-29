@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maximum — Ideas que posicionan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #2a6bbf;
+      --coral:   #e8604a;
+      --orange:  #f0a030;
+      --dark:    #1a1a2e;
+      --mid:     #4a4a5a;
+      --light:   #8a8a9a;
+      --bg:      #ffffff;
+      --bg-soft: #f8f8f6;
+      --border:  #e8e8e4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 6vw;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .logo-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 1.45rem;
+      color: var(--blue);
+      letter-spacing: -0.02em;
+    }
+    .logo-dots { display: flex; gap: 3px; align-items: center; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-1 { background: #c97a7a; }
+    .dot-2 { background: #e89040; }
+    .dot-3 { background: #c9a835; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 6vw 4rem;
+      gap: 4rem;
+    }
+    .hero-tagline {
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.6rem, 4.2vw, 4rem);
+      line-height: 1.1;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+    h1 em { font-style: italic; color: var(--blue); }
+    .hero-desc {
+      margin-top: 1.8rem;
+      font-size: 1rem;
+      color: var(--mid);
+      max-width: 42ch;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.8s forwards;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--blue);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn:hover { background: #1e56a0; transform: translateY(-2px); }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeIn 1.2s ease 0.5s forwards;
+    }
+    .hero-right img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* SOBRE MÍ */
+    #sobre-mi {
+      background: var(--bg-soft);
+      padding: 6rem 6vw;
+      border-top: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.15;
+      color: var(--dark);
+    }
+    h2 em { font-style: italic; color: var(--blue); }
+
+    .about-photo {
+      margin-top: 2rem;
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1.5px solid #1a1a1a;
+      display: block;
+      filter: grayscale(10%);
+    }
+
+    .about-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 0.25rem;
+    }
+    .about-title {
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+    .about-body p {
+      color: var(--mid);
+      margin-bottom: 1.1rem;
+      font-size: 0.97rem;
+    }
+    .expertise-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      padding: 0.38rem 1rem;
+      border: 1px solid var(--border);
+      color: var(--mid);
+      border-radius: 100px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tag:hover { border-color: var(--blue); color: var(--blue); }
+
+    .team-note {
+      margin-top: 2.5rem;
+      padding: 1.4rem 1.8rem;
+      border-left: 3px solid var(--blue);
+      background: white;
+      color: var(--mid);
+      font-size: 0.93rem;
+      font-style: italic;
+    }
+
+    /* CASOS */
+    #casos {
+      padding: 6rem 6vw;
+      border-top: 1px solid var(--border);
+    }
+    .casos-header {
+      max-width: 1100px;
+      margin-bottom: 3.5rem;
+    }
+    .casos-header p.sub {
+      margin-top: 1rem;
+      color: var(--light);
+      font-size: 0.93rem;
+      max-width: 48ch;
+    }
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      max-width: 1100px;
+    }
+    .client-item {
+      background: var(--bg);
+      padding: 1.6rem 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      transition: background 0.2s;
+    }
+    .client-item:hover { background: var(--bg-soft); }
+    .client-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+      flex-shrink: 0;
+    }
+    .client-name {
+      font-size: 0.87rem;
+      font-weight: 400;
+      color: var(--dark);
+    }
+
+    /* CONTACTO */
+    #contacto {
+      background: var(--dark);
+      padding: 6rem 6vw;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-wrap { max-width: 640px; position: relative; z-index: 2; }
+    #contacto .section-label { color: var(--orange); }
+    #contacto h2 { color: white; }
+    #contacto h2 em { color: var(--orange); font-style: italic; }
+    .contact-sub {
+      margin-top: 1rem;
+      color: #7a7a8a;
+      font-size: 0.95rem;
+    }
+    .contact-email-block {
+      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .email-icon {
+      width: 50px; height: 50px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .email-icon svg {
+      width: 20px; height: 20px;
+      stroke: var(--orange);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .email-link-wrap small {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #5a5a6a;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .email-link {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: white;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .email-link:hover { color: var(--orange); }
+
+    .birds-bg {
+      position: absolute;
+      bottom: -20px; right: -40px;
+      width: 380px;
+      opacity: 0.06;
+      filter: invert(1);
+      pointer-events: none;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #111120;
+      padding: 1.6rem 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.25);
+    }
+    .footer-copy {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      #hero {
+        grid-template-columns: 1fr;
+        padding-top: 8rem;
+        text-align: center;
+      }
+      .hero-desc { max-width: 100%; }
+      .hero-right { order: -1; }
+      .hero-right img { max-width: 260px; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">
+      <span class="logo-text">maximum</span>
+      <div class="logo-dots">
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+        <div class="dot dot-3"></div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#casos">Clientes</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-tagline">Ideas que posicionan</p>
+      <h1>Marketing que<br/><em>transforma</em><br/>marcas.</h1>
+      <p class="hero-desc">Estrategia, comunicación y posicionamiento para empresas que quieren crecer con identidad propia y diferenciación real.</p>
+      <div class="hero-cta">
+        <a href="#contacto" class="btn">Hablemos</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="IMG_2687.jpeg" alt="Maximum — ideas que posicionan" />
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <div class="about-grid reveal">
+      <div>
+        <p class="section-label">Sobre mí</p>
+        <h2>Una <em>mirada</em><br/>estratégica.</h2>
+        <img src="pablo-brunt.jpg" alt="Pablo G. Brunt" class="about-photo" />
+      </div>
+      <div class="about-body">
+        <p class="about-name">Pablo G. Brunt</p>
+        <p class="about-title">Consultor de Marketing & Comunicación</p>
+        <p>Especialista en marketing, posicionamiento de marca y estrategias comunicacionales con más de dos décadas de experiencia en empresas de distintos rubros e industrias. Consultor de cabecera para pymes que quieren crecer con propósito e identidad propia.</p>
+        <p>Antes de fundar Maximum en 2002, integré el Departamento de Marketing de Telecom Argentina, trabajé como creativo en agencias de publicidad y fui Gerente de Publicidad de Travelclub. También me desempeño como asesor en mercados y negocios blockchain.</p>
+        <div class="expertise-tags">
+          <span class="tag">Marketing estratégico</span>
+          <span class="tag">Posicionamiento de marca</span>
+          <span class="tag">Estrategia digital</span>
+          <span class="tag">Comunicación corporativa</span>
+          <span class="tag">Consultoría para pymes</span>
+          <span class="tag">Negocios blockchain</span>
+        </div>
+        <div class="team-note">
+          Maximum trabaja con un equipo de profesionales seleccionados según las necesidades de cada proyecto — porque los mejores resultados los logran las personas correctas trabajando juntas.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section id="casos">
+    <div class="casos-header reveal">
+      <p class="section-label">Clientes</p>
+      <h2>Marcas que<br/><em>confiaron</em> en nosotros.</h2>
+      <p class="sub">Un recorrido diverso de industrias, culturas y desafíos. Cada cliente, una historia de posicionamiento.</p>
+    </div>
+    <div class="clients-grid reveal">
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">KeyFintech</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Gnosis Chain</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Logan Travel</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Status Wallet</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">LI Rentals UK</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Danone Argentina – AdOne</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Paraguay – Mkt Network</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Cruceros Pullmantur</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Amichi Viajes</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Terrafertil</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Aviabue</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Aerolíneas Vacaciones</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Riu Hotels &amp; Resorts</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Wamos</span></div>
+      <div class="client-item"><div class="client-dot"></div><span class="client-name">Panavision</span></div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <img src="IMG_2687.jpeg" alt="" class="birds-bg" aria-hidden="true" />
+    <div class="contact-wrap reveal">
+      <p class="section-label">Contacto</p>
+      <h2>¿Tenés un<br/><em>proyecto</em> en mente?</h2>
+      <p class="contact-sub">Contanos de qué se trata. Respondemos a la brevedad.</p>
+      <div class="contact-email-block">
+        <div class="email-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div class="email-link-wrap">
+          <small>Escribinos a</small>
+          <a href="mailto:brunt@maximum.com.ar" class="email-link">brunt@maximum.com.ar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">maximum</span>
+    <span class="footer-copy">© 2025 Maximum. Todos los derechos reservados.</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
